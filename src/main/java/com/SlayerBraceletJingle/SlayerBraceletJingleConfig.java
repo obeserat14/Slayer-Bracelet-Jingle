@@ -19,4 +19,37 @@ public interface SlayerBraceletJingleConfig extends Config
 	{
 		return 20;
 	}
+
+	@ConfigItem(
+			keyName = "BraceletSounds",
+			name = "Disable Charge Sound",
+			description = "Disables sound for each charge",
+			position = 2
+	)
+	default boolean DisableBraceletSounds()
+{
+	return false;
+}
+
+	@ConfigItem(
+			keyName = "LastCharge",
+			name = "Disable Last Charge Sound",
+			description = "Disables the sound made when on final charge",
+			position = 3
+	)
+	default boolean LastChargeSound()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "CrumbledBracelet",
+			name = "Disable Crumbled Bracelet Sound",
+			description = "Disables the sound made when your bracelet crumbles",
+			position = 4
+	)
+	default boolean CrumbledBraceletSound()
+	{
+		return false;
+	}
 }

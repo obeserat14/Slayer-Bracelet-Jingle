@@ -37,13 +37,30 @@ public class SlayerBraceletJinglePlugin extends Plugin {
 
 	@Subscribe
 	private void onChatMessage(ChatMessage event) {
-		if (event.getType() == ChatMessageType.GAMEMESSAGE && event.getType() != ChatMessageType.GAMEMESSAGE) {
-			String message = Text.standardize(event.getMessageNode().getValue());
-			if (message.contains("Some nicely cooked trout.")) {
+		//even if the spam filter is on, the client still catches it!
+		if (event.getType() == ChatMessageType.SPAM) {
+			String message = Text.standardize(event.getMessageNode().getValue()); //this makes the message lowercase
+
+			//contains allows you to grab sections of a string, doesnt have to be the full string
+			if ((message.contains("expeditious bracelet helps you progress") || message.contains("bracelet of slaughter prevents"))
+					&& !this.config.DisableBraceletSounds()) {
 				client.playSoundEffect(3924, this.config.volume());
 			}
 		}
+
+		//the last 2 charges are handled as a game message by the client instead of spam, edge case required
+		if (event.getType() == ChatMessageType.GAMEMESSAGE) {
+			String message = Text.standardize(event.getMessageNode().getValue());
+
+			if (message.contains("it has 1 charge left") && !this.config.LastChargeSound()) {
+				client.playSoundEffect(3925, this.config.volume());
+			}
+			if (message.contains("crumbles to dust") && !this.config.CrumbledBraceletSound()) {
+				client.playSoundEffect(3926, this.config.volume());
+			}
+		}
 	}
+
 	@Provides
 	SlayerBraceletJingleConfig provideConfig(ConfigManager configManager)
 	{
