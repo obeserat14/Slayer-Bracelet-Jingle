@@ -43,8 +43,8 @@ public class SlayerBraceletJinglePlugin extends Plugin {
 
 			//contains allows you to grab sections of a string, doesnt have to be the full string
 			if ((message.contains("expeditious bracelet helps you progress") || message.contains("bracelet of slaughter prevents"))
-					&& !this.config.DisableBraceletSounds()) {
-				client.playSoundEffect(3924, this.config.volume());
+					&& !this.config.disableBraceletSounds()) {
+				client.playSoundEffect(this.config.braceletSound(), this.config.volume());
 			}
 		}
 
@@ -52,11 +52,11 @@ public class SlayerBraceletJinglePlugin extends Plugin {
 		if (event.getType() == ChatMessageType.GAMEMESSAGE) {
 			String message = Text.standardize(event.getMessageNode().getValue());
 
-			if (message.contains("it has 1 charge left") && !this.config.LastChargeSound()) {
-				client.playSoundEffect(3925, this.config.volume());
+			if (message.contains("slayer task faster. it has 1 charge left") && !this.config.disableLastChargeSound()) {
+				client.playSoundEffect(this.config.lastChargeSound(), this.config.volume());
 			}
-			if (message.contains("crumbles to dust") && !this.config.CrumbledBraceletSound()) {
-				client.playSoundEffect(3926, this.config.volume());
+			if (message.contains("crumbles to dust") && !this.config.disableCrumbledBraceletSound()) {
+				client.playSoundEffect(this.config.crumbledBraceletSound(), this.config.volume());
 			}
 		}
 	}
